@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import CardList from './CardList';
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      robots: []
+    }
+  }
+
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response => response.json())
+    .then(data => this.setState({robots: data}));
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className='tc'>
+        <h1> Robos </h1>
+        <div className='tc'>
+        <CardList robots={ this.state.robots }/>
+        </div>
       </div>
     );
   }
